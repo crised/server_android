@@ -6,6 +6,9 @@ This project is about a Server Application plus a Android application.
 For practical purposes the client company will be named ACME. Our company is Telematic, so our packages could be named
 com.telematic.
 
+Our unit of work will be a job assigment. Which consist of a in-company agent creating an *assigment* for a specific
+**field agent**.
+
 
 Server Application
 -----------------
@@ -15,8 +18,8 @@ The server will be based on JBoss AS 7.1.3 (EAP).
 The server app will communicate to existing company systems. 
 
 Application Features:
-* Google Maps v3 API.
-* Angular JS on front end.
+* Google Maps v3 API. Simple markers to show position of both *android devices* and *job assigments*.  
+* AngularJS on front end.
 
 Android Application
 -----------------
@@ -33,7 +36,7 @@ Application Features:
 * RESTFul application, that communicates  with the Server application.
 * Application has to allow image selection of the Gallery in order to upload n images realated to specific job.
 * Canvas Drawing with stylus pen is required in order for the customer to write their signature.
-* Embedded Google Maps 
+* Embedded Google Maps V2 API. Simple Overlays to show positions of assigments.
 
 
 
