@@ -76,3 +76,5 @@ ACME haves 3 main application that we concern:
 Other Considerations
 ----------------
 Sonar is considered for application analysis, both on server code and android code.
+
+2 micro instances with fixed ip will be setted in order to have 2 working servers (ACME & Telematic).
