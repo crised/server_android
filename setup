@@ -81,3 +81,7 @@ sudo -u postgres psql -U postgres TELEMATIC
 
 ::: Drawing / UML / Diagrams -> https://www.draw.io/
 
+:::<<>>:::
+
+::: Suggestion for speed up the developement
+Create some basic projects with JBoss Forger and clone the https://github.com/donnfelker/android-bootstrap ( see http://www.youtube.com/watch?v=YbyzRNxcvZw )
