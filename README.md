@@ -6,37 +6,58 @@ This project is about a Server Application plus a Android application.
 For practical purposes the client company will be named ACME. Our company is Telematic, so our packages could be named
 com.telematic.
 
-Our unit of work will be a job assigment. Which consist of a in-company agent creating an *assigment* for a specific
-**field agent**.
+Our unit of work will be a job assigment. Which consist of a in-company agent creating an *assigment* for a specific **field agent**.
+
+Important Relationships:
+
+* 3 ACME applications.
+* 1 Telematic Server Application.
+* Any number of clients connected to Admin Client.
+* 15 android tablets.
+* Each created Job must be assigned to one specific agent.
 
 
-Server Application
+Telematic Server Application
 -----------------
 
-The server will be based on JBoss AS 7.1.1. 
+The server will be based on JBoss AS 7.1.1.  This server will be behind Apache
+httpd server, in order to manage SSL encryption.
 
-The server app will communicate to existing company systems. 
+The server app will communicate to existing ACME company services with SOAP web services, and with RESTful to Admin and Android client applications. 
 
-Application Features:
-* Google Maps v3 API. Simple markers to show position of both *android devices* and *job assigments*.  
-* AngularJS on front end.
+
+Admin Client Application
+----------------
+
+Local ACME intranet website, embedded in Telematic Server application, which communicates with the same RESTful API interface that android devices communicate. 
+
+Purpose is to show markers in the map about the current jobs to do. 
+
+Each job will be assigned
+
+Features:
+
+* Google Maps v3 API. Simple markers to show position of both *android devices* and *job assignments*.  Each marker provides information about job task. 
+
+* AngularJS on front end. 
 
 Android Application
 -----------------
 
 Then Android application is aimed for a single device, Samsung Galaxy 2 10" (P5100). 
 
-We can use the stock 4.0.x or the updated Cyangenmod firmware, that represents Android Jelly Bean,
-but there is no stable version yet. Could be either. 
+We can use the stock 4.0.x or the updated Cyanogenmod firmware, that represents Android Jelly Bean, but there is no stable version yet. Could be either. Latter is prefered in order to limit the number of applications so users won't be able to drain battery on other stuff but our application.
 
 There are approximately 15 persons that would be using the app, so 15 tablets should be used.
 
 Application Features: 
 
 * RESTFul application, that communicates  with the Server application.
-* Application has to allow image selection of the Gallery in order to upload n images realated to specific job.
+* Application has to allow image selection of the Gallery in order to upload n images related to specific job.
 * Canvas Drawing with stylus pen is required in order for the customer to write their signature.
-* Embedded Google Maps V2 API. Simple Overlays to show positions of assigments.
+* Embedded Google Maps V2 API. Simple Overlays to show positions of assignments.
+* Google Cloud Messaging for Android, this notification will be received to wake 
+the device in order to GET a specific URL for a list of jobs.
 
 
 
@@ -46,5 +67,5 @@ Existing ACME Applications
 ACME haves 3 main application that we concern:
 
 * Oracle Siebel - CRM 
-* Commercial Sistem
+* Commercial System
 * Document Content Provider
