@@ -13,7 +13,7 @@ Our unit of work will be a job assigment. Which consist of a in-company agent cr
 Server Application
 -----------------
 
-The server will be based on JBoss AS 7.1.3 (EAP). 
+The server will be based on JBoss AS 7.1.1. 
 
 The server app will communicate to existing company systems. 
 
