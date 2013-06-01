@@ -1,0 +1,63 @@
+::: Repository -> GitHub private
+git clone https://github.com/crised/server-android
+
+::: Java
+$ java -version
+java version "1.7.0_21"
+OpenJDK Runtime Environment (IcedTea 2.3.9) (7u21-2.3.9-0ubuntu0.12.10.1)
+OpenJDK 64-Bit Server VM (build 23.7-b01, mixed mode)
+
+::: Profile (.profile or .bash_rc)
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+export M2_HOME=~/applications/apache-maven-3.0.4
+export M2=$M2_HOME/bin
+export FORGE_HOME=~/applications/forge-distribution-1.2.1.Final
+export PATH=$JAVA_HOME/bin:$M2:$FORGE_HOME/bin:$PATH
+
+::: Profile_END
+
+::: Maven 3
+
+::: IDE
+Eclipse Juno + Java EE + Android Plugin
+InterlJ
+
+::: Java EE Container
+JBoss AS 7.1.1
+
+::: JBoss Forge
+forge-distribution-1.2.1.Final
+
+::: Android SDK
+android-sdk_r22.0.1-linux
+
+::: Sonar
+sonar-3.5.1
+
+::: CI -> Jenkins -> not now
+
+::: Configuration management -> Chef -> not now
+
+::: DATABASE -> PostgreSQL 9.1
+sudo -u postgres psql template1
+ALTER USER postgres with encrypted password 'pgadmin3';
+#Press ctrl-d to exit
+
+sudo vim /etc/postgresql/9.1/main/pg_hba.conf
+#replace "local all postgres peer" to "local all postgres md5"
+
+sudo vim /etc/postgresql/9.1/main/postgresql.conf
+# remove the '#' in the line "#listen_addresses = 'localhost'"
+
+sudo service postgresql restart
+
+# To create the database TELEMATIC for postgres (user)
+sudo -u postgres createdb TELEMATIC
+
+#So the user and pass we will use foward:
+user: postgres & pass: pgadmin3
+
+#To test (or with pgadmin3, the graphical tool)
+sudo -u postgres psql -U postgres TELEMATIC
+
+::: DATABASE_END
