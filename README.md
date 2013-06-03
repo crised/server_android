@@ -12,7 +12,7 @@ Our unit of work will be a job assignment. Which consist of a back office agent 
 
 Important Relationships:
 
-* 3 ACME existing applications.
+* 3 ACME existing applications (we're not allowed to modify this)
 * 1 Telematic Server Application.
 * Any number of clients connected to Admin Client.
 * 12 android tablets for field agents.
@@ -21,6 +21,9 @@ Important Relationships:
 
 Telematic Server Application
 -----------------
+
+Server Address: (Right now using AngularJS quickstart)
+ http://23.21.60.18:8080/jboss-as-kitchensink-angularjs/rest/members/
 
 The server will be based on JBoss AS 7.1.1 (built JBoss 7.1.3 from suorce, what is roughly equivalente).  This server will be behind Apache
 httpd server, in order to manage SSL encryption.
@@ -36,6 +39,9 @@ Keep in mind that Siebel Task can be CREATE/UPDATE/DELETE , so each notice shoul
 
 Admin Browser Client Application
 ----------------
+
+Server Address: http://107.21.233.48:8080/
+
 
 Local ACME intranet website, embedded in Telematic Server application, which communicates with the same RESTful API interface that android devices communicate. 
 
@@ -69,7 +75,7 @@ Design guidelines:
 
 * Dagger DI.
 * AndroidBootstrap (SafeAsyncTask seems a good class to use for threading help).
-* Loaders and Listviews.
+* Loaders and Listviews and Adapters.
 * SQLite Content provider.
 * GSON (Converts JSON message to POJO)
 * ButterKnife to Inject Views.
@@ -90,5 +96,3 @@ ACME haves 3 main application that we concern:
 Other Considerations
 ----------------
 Sonar is considered for application analysis, both on server code and android code.
-
-2 micro instances with fixed ip will be setted in order to have 2 working servers (ACME & Telematic).
