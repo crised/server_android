@@ -3,14 +3,16 @@ server-android
 
 This project is about a Server Application plus a Android application.
 
-For practical purposes the client company will be named ACME. Our company is Telematic, so our packages could be named
+For practical purposes the client company will be named ACME. ACME is not an IT company so their servers are closed to us for now. 
+
+Our company is Telematic, so our packages could be named
 com.telematic.
 
 Our unit of work will be a job assignment. Which consist of a back office agent creating an *assignment* for a specific **field agent**.
 
 Important Relationships:
 
-* 3 ACME applications.
+* 3 ACME existing applications.
 * 1 Telematic Server Application.
 * Any number of clients connected to Admin Client.
 * 12 android tablets for field agents.
@@ -20,7 +22,7 @@ Important Relationships:
 Telematic Server Application
 -----------------
 
-The server will be based on JBoss AS 7.1.1.  This server will be behind Apache
+The server will be based on JBoss AS 7.1.1 (built JBoss 7.1.3 from suorce, what is roughly equivalente).  This server will be behind Apache
 httpd server, in order to manage SSL encryption.
 
 The server app will communicate to existing ACME company services with SOAP web services on the back end, on the front end side: with RESTful to Admin and Android client applications.
@@ -62,6 +64,17 @@ Application Features:
 * Embedded Google Maps V2 API. Simple Overlays to show positions of assignments.
 * Google Cloud Messaging for Android, this notification will be received to wake 
 the device in order to GET a specific URL for a list of jobs.
+
+Design guidelines:
+
+* Dagger DI.
+* AndroidBootstrap (SafeAsyncTask seems a good class to use for threading help).
+* Loaders and Listviews.
+* SQLite Content provider.
+* GSON (Converts JSON message to POJO)
+* ButterKnife to Inject Views.
+* Avoid all unnecessary pre 4.0 android libraries (Like SherlockActionBar).
+
 
 
 Existing ACME Applications
