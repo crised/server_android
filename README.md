@@ -74,6 +74,7 @@ Design guidelines:
 * GSON (Converts JSON message to POJO)
 * ButterKnife to Inject Views.
 * Avoid all unnecessary pre 4.0 android libraries (Like SherlockActionBar).
+* Implementation of REST pattern by Virgil Dobjanschi.
 
 
 
