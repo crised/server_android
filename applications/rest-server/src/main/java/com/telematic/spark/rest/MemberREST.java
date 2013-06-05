@@ -24,7 +24,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.telematic.spark.dao.MemberRepository;
+import com.telematic.spark.service.MemberService;
 import com.telematic.spark.ws.client.Member;
 
 
@@ -45,7 +45,7 @@ public class MemberREST {
     private Validator validator;
 
     @Inject
-    private MemberRepository repository;
+    private MemberService repository;
 
 
     @GET

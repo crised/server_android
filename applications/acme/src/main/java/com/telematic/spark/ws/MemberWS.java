@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 
 import com.telematic.spark.dao.MemberRepository;
@@ -25,7 +26,14 @@ public class MemberWS {
 
 	@WebMethod
 	// not necessary
-	public List<Member> listAllMembers(Date timestamp) {
+	public List<Member> listAllMembers(
+			@WebParam(name = "dateAfter") Date timestamp) {
 		return repository.findCreatedSince(timestamp);
 	}
+
+	@WebMethod
+	public void save(@WebParam(name = "member") Member mem) {
+		repository.merge(mem);
+	}
+
 }

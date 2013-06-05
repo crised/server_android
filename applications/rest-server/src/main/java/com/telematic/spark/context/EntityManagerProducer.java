@@ -1,4 +1,4 @@
-package com.telematic.spark.util;
+package com.telematic.spark.context;
 
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;

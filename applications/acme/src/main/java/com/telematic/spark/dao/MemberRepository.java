@@ -1,17 +1,19 @@
 package com.telematic.spark.dao;
 
-import javax.enterprise.context.ApplicationScoped;
+import java.util.Date;
+import java.util.List;
+
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import java.util.Date;
-import java.util.List;
-
-import com.telematic.spark.model.Member_;
 import com.telematic.spark.model.Member;
+import com.telematic.spark.model.Member_;
 
 /**
  * The example of a repository for the Member entity (the package is a symbolic
@@ -20,7 +22,8 @@ import com.telematic.spark.model.Member;
  * @author lcestari
  * 
  */
-@ApplicationScoped
+
+@Stateless
 public class MemberRepository {
 
     @Inject
@@ -51,5 +54,10 @@ public class MemberRepository {
 		return em.createQuery("from Memeber where createdOn>:created")
 		.setParameter("created", timestamp)
 		.getResultList();
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void merge(Member mem) {
+		em.merge(mem);
 	}
 }

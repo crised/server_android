@@ -1,4 +1,4 @@
-package com.telematic.spark.util;
+package com.telematic.spark.context;
 
 import java.util.logging.Logger;
 

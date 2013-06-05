@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
+import javax.ejb.Timer;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
@@ -22,7 +23,7 @@ public class Datapump {
 	EntityManager em;
 
 	@Schedule(minute = "*/5")
-	public void insertDummyData() {
+	public void insertDummyData(final Timer t) {
 
 		log.info("insert dummy data...");
 		Member newMember = new Member();
