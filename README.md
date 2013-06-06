@@ -2,9 +2,9 @@ server-android
 ==============
 Name changed!
 ==============
-deludo(WS) ex acme
-spark(WS+RS) ex telematic
-heron(android)
+* deludo(WS) ex acme
+* spark(WS+RS) ex telematic
+* heron(android)
 
 
 This project is about a Server Application plus a Android application.
