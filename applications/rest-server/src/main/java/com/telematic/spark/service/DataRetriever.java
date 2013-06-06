@@ -34,7 +34,7 @@ public class DataRetriever {
 		System.out.println("@Schedule called at: " + new java.util.Date());
 
 		GregorianCalendar calendar = new GregorianCalendar();
-		calendar.add(Calendar.MINUTE, -30);
+		calendar.add(Calendar.MINUTE, -5);
 
 		XMLGregorianCalendar cal = null;
 		try {
