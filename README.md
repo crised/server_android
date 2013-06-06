@@ -1,12 +1,15 @@
 server-android
 ==============
+Name changed!
+==============
+deludo(WS) ex acme
+spark(WS+RS) ex telematic
+heron(android)
+
 
 This project is about a Server Application plus a Android application.
 
 For practical purposes the client company will be named Deludo. Deludo is not an IT company so their servers are closed to us for now. 
-
-Our company is Spark, so our packages could be named
-com.Spark.
 
 Our unit of work will be a job assignment. Which consist of a back office agent creating an *assignment* for a specific **field agent**.
 
@@ -17,6 +20,7 @@ Important Relationships:
 * Any number of clients connected to Admin Client.
 * 12 android tablets for field agents.
 * Each created Job must be assigned to one specific agent.
+
 
 
 Spark Server Application
