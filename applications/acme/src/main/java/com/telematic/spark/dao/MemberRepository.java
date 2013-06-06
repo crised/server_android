@@ -24,23 +24,12 @@ public class MemberRepository {
     @Inject
     private EntityManager em;
 
+    @SuppressWarnings("unchecked")
     public List<Member> findAll()
     {
-        //noinspection unchecked
         return em.createQuery("select m from Member m").getResultList();
     }
 
-    @SuppressWarnings("UnusedDeclaration")
-    public List<Member> findAllOrderedByName()
-    {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Member> criteria = cb.createQuery(Member.class);
-        Root<Member> member = criteria.from(Member.class);
-        criteria.select(member).orderBy(cb.asc(member.get(Member_.name)));
-        return em.createQuery(criteria).getResultList();
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
     public Member findByEmail(String email)
     {
         CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -48,12 +37,6 @@ public class MemberRepository {
         Root<Member> member = criteria.from(Member.class);
         criteria.select(member).where(cb.equal(member.get(Member_.name), email));
         return em.createQuery(criteria).getSingleResult();
-    }
-
-    @SuppressWarnings("UnusedDeclaration")
-    public Member findById(Long id)
-    {
-        return em.find(Member.class, id);
     }
 
     @SuppressWarnings("unchecked")
