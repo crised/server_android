@@ -36,4 +36,9 @@ public class MemberWS {
 		repository.merge(mem);
 	}
 
+    @WebMethod
+    public List<Member> listAll(){
+        return repository.findAllOrderedByName();
+    }
+
 }
