@@ -36,6 +36,7 @@ One idea can be to extend both classes that consume the 2 web services, (assumin
 
 Keep in mind that Siebel Task can be CREATE/UPDATE/DELETE , so each notice should be send  to the device. We would have to think of some locking mechanism when a specific job task is being changed by Siebel, at the same time android app is uploading finished information.
 
+We should use Jackson instead of Jettison for generating JSON object.
 
 Admin Browser Client Application
 ----------------
