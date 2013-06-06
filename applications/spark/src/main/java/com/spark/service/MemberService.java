@@ -1,3 +1,5 @@
+package com.spark.service;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -11,12 +13,11 @@ import javax.inject.Inject;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 
+import com.deludo.ws.client.MemberWSService;
 import com.spark.model.Member;
 import org.infinispan.Cache;
 
 import com.spark.context.PendingCache;
-import com.telematic.spark.model.Member;
-import com.telematic.spark.ws.client.MemberWSService;
 
 @Stateless
 public class MemberService {
@@ -43,7 +44,7 @@ public class MemberService {
     }
 
     public void save(Member member) {
-        com.telematic.spark.ws.client.Member m = new com.telematic.spark.ws.client.Member();
+       com.deludo.ws.client.Member m = new com.deludo.ws.client.Member();
 
         Date d = member.getCreatedOn();
         GregorianCalendar gcal = new GregorianCalendar();
@@ -66,8 +67,8 @@ public class MemberService {
         new MemberWSService().getMemberWSPort().save(m);
     }
 
-    public void append(List<com.telematic.spark.ws.client.Member> mems) {
-        for (com.telematic.spark.ws.client.Member m : mems) {
+    public void append(List<com.deludo.ws.client.Member> mems) {
+        for (com.deludo.ws.client.Member m : mems) {
             log.log(Level.INFO, "add memeber into cache ...@" + m.toString());
             Member member = new Member();
             member.setId(m.getId());
@@ -75,7 +76,7 @@ public class MemberService {
             member.setName(m.getName());
             member.setPhoneNumber(m.getPhoneNumber());
             member.setVersion(m.getVersion());
-            member.setCreatedOn(new Date(m.getCreatedOn().getYear(), m
+            member.setCreatedOn(new Daaddte(m.getCreatedOn().getYear(), m
                     .getCreatedOn().getMonth(), m.getCreatedOn().getDay(), m
                     .getCreatedOn().getHour(), m.getCreatedOn().getMinute(), m
                     .getCreatedOn().getSecond()));

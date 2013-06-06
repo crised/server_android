@@ -1,5 +1,8 @@
 package com.spark.service;
 
+import com.deludo.ws.client.Member;
+import com.deludo.ws.client.MemberWSService;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -12,14 +15,13 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.deludo.generated.ws.client.Member;
-import com.deludo.generated.ws.client.MemberWSService;
+
 
 @Stateless
 public class DataRetriever {
 
 	@EJB
-	MemberService svc;	
+	MemberService svc;
 
 	/**
 	 * Default constructor.
