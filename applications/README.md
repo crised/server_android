@@ -2,12 +2,17 @@
 
 ## Introduction
 
-Currently the two project severs for remote access.
+Currently two projects are ready for remote access service via REST API.
 
-* **acme** - ACME SOAP based service emulator.
+* **acme** - ACME JAXWS SOAP based service emulator.
 * **rest-server** - retrieve the data from ACME, provides REST APIs for remote application.
 
-*Some problem is encountered, the whole workflow does not work now*.
+*The workflow* works now.
+
+1. acme will generate the test data by Databump.
+2. rest-server can get the latest data via JAXWS SOAP based web service 5 minutes and add them in Infinispan cache.
+3. the data in infinispan cache is can be accessed by REST [http://localhost:8080/rest-server/rest/members/](http://localhost:8080/rest-server/rest/members/). 
+4. member data can be update via REST API, the change should be sync to acme by JAXWS SOAP web service.
 
 ## ACME
 
@@ -38,8 +43,12 @@ Run the command,
 
 to deploy the application to running Jboss 7 server.
 
+All members in cache can be access via [http://localhost:8080/rest-server/rest/members/](http://localhost:8080/rest-server/rest/members/).
+
 ## Issues
 
-1. EJB timer is problematic when use CDI together, the @Schedule dose not work as expected. Must get CDI bean manually in @Schedule type EJB.
+1. The JAXWS client does not share the same models(Member) with the server side (acme).
+
+2. The Date format processing in JAXWS...maybe change to Joda date and time to get united programming model.
  
-2. Logger will switch to log4j one instead of the JDK logging, this is not an issue, just a small improvement.
+3. Logger will be switched to log4j logger instead of the JDK logging, this is not an issue, just a small improvement.

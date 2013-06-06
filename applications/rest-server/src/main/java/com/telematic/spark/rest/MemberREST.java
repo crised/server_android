@@ -25,7 +25,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.telematic.spark.service.MemberService;
-import com.telematic.spark.ws.client.Member;
+import com.telematic.spark.model.Member;
 
 
 /**

@@ -8,6 +8,7 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -26,7 +27,7 @@ import com.telematic.spark.model.Member_;
 @Stateless
 public class MemberRepository {
 
-    @Inject
+    @PersistenceContext
     private EntityManager em;
 
     public Member findById(Long id) {
@@ -51,7 +52,7 @@ public class MemberRepository {
 
 	public List<Member> findCreatedSince(Date timestamp) {
 
-		return em.createQuery("from Memeber where createdOn>:created")
+		return em.createQuery("from Member where createdOn>:created")
 		.setParameter("created", timestamp)
 		.getResultList();
 	}

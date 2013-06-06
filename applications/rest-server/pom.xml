@@ -129,6 +129,7 @@
 			<groupId>com.sun.xml.ws</groupId>
 			<artifactId>jaxws-rt</artifactId>
 			<version>2.2.7</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- Infinispan dependency -->

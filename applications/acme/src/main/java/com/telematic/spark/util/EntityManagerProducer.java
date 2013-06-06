@@ -12,8 +12,8 @@ import javax.persistence.PersistenceContext;
  */
 public class EntityManagerProducer {
 	
-    @Produces
+    /*@Produces
     @PersistenceContext
     //@Dependent //Default CDI scope
-    private EntityManager em;
+    private EntityManager em;*/
 }
