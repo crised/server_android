@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+   <soap:Body>
+      <ns2:listAllResponse xmlns:ns2="http://www.telematic.com/soap">
+         <return>
+            <email>nsurname@mymail.com</email>
+            <id>0</id>
+            <name>Name Surname</name>
+            <phoneNumber>3128551212</phoneNumber>
+         </return>
+         <return>
+            <createdOn>2013-06-06T16:30:00.004-04:00</createdOn>
+            <email>test@test.com</email>
+            <id>1</id>
+            <name>NameThu Jun 06 16:30:00 CLT 2013</name>
+            <phoneNumber>1234567890</phoneNumber>
+            <version>0</version>
+         </return>
+         <return>
+            <createdOn>2013-06-06T16:35:00.002-04:00</createdOn>
+            <email>test@test.com</email>
+            <id>2</id>
+            <name>NameThu Jun 06 16:35:00 CLT 2013</name>
+            <phoneNumber>1234567890</phoneNumber>
+            <version>0</version>
+         </return>
+         <return>
+            <createdOn>2013-06-06T16:40:00.002-04:00</createdOn>
+            <email>test@test.com</email>
+            <id>3</id>
+            <name>NameThu Jun 06 16:40:00 CLT 2013</name>
+            <phoneNumber>1234567890</phoneNumber>
+            <version>0</version>
+         </return>
+      </ns2:listAllResponse>
+   </soap:Body>
+</soap:Envelope>

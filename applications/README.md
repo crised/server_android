@@ -26,7 +26,7 @@ Run the command,
 
 to deploy the application to running Jboss 7 server.
 
-SOAP based service url, http://localhost:8080/acme/MemberWSService?wsdl
+SOAP based service url, http://107.21.233.48:8080/acme/MemberWSService?wsdl
 
 
 ## REST Server
