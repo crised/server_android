@@ -13,20 +13,20 @@ import java.util.logging.Logger;
 public class Datapump {
 
     @Inject
-    EntityManager em;
+    private EntityManager em;
 
+    @SuppressWarnings("CdiInjectionPointsInspection")
     @Inject
-    Logger log;
+    private Logger log;
 
-    @Schedule(minute = "*/1")
+    @Schedule(hour = "*", minute = "*/1")
     public void insertDummyData()
     {
-
         log.info("insert dummy data...");
         Member newMember = new Member();
-        newMember.setEmail("test@test.com");
-        newMember.setName("Name" + new Date());
-        newMember.setPhoneNumber("1234");
+        newMember.setEmail(new Date().getTime() + "@test.com");
+        newMember.setName("Name");
+        newMember.setPhoneNumber("1234567890");
         newMember.setCreatedOn(new Date());
 
         em.persist(newMember);

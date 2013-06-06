@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 // suggestion
 public class MemberWS {
 
+    @SuppressWarnings("CdiInjectionPointsInspection")
     @Inject
     Logger log;
 
@@ -29,7 +30,10 @@ public class MemberWS {
     // not necessary
     public List<Member> listAllMembers(Date timestamp)
     {
-        log.info("ACME WS invoked...");
+        log.info("ACME WS invoked..." + timestamp);
+        if (timestamp == null) {
+            return repository.findAll();
+        }
         return repository.findCreatedSince(timestamp);
     }
 }
