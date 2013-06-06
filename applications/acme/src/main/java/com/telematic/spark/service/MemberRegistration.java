@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -30,6 +31,7 @@ public class MemberRegistration {
 
     public void register(Member member) throws Exception {
         log.info("Registering " + member.getName());
+        member.setCreatedOn(new Date());
         em.persist(member);
         memberEventSrc.fire(member);
     }
