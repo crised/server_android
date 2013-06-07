@@ -4,17 +4,17 @@
 
 Currently two projects are ready for remote access service via REST API.
 
-* **acme** - ACME JAXWS SOAP based service emulator.
-* **rest-server** - retrieve the data from ACME, provides REST APIs for remote application.
+* **deludo** - deludo JAXWS SOAP based service emulator. http://107.21.233.48:8080/acme/MemberWSService?wsdl
+* **spark** - retrieve the data from deludo, provides REST APIs for remote application.
 
 *The workflow* works now.
 
-1. acme will generate the test data by Databump.
+1. deludo will generate the test data by Databump.
 2. rest-server can get the latest data via JAXWS SOAP based web service 5 minutes and add them in Infinispan cache.
 3. the data in infinispan cache is can be accessed by REST [http://localhost:8080/rest-server/rest/members/](http://localhost:8080/rest-server/rest/members/). 
 4. member data can be update via REST API, the change should be sync to acme by JAXWS SOAP web service.
 
-## ACME
+## deludo
 
 There is a Timer based service(DataBump) as a dummy service to insert test data.
 
@@ -26,14 +26,14 @@ Run the command,
 
 to deploy the application to running Jboss 7 server.
 
-SOAP based service url, [http://localhost:8080/acme/MemberWS?wsdl](http://localhost:8080/acme/MemberWS?wsdl)
+SOAP based service url, http://107.21.233.48:8080/acme/MemberWSService?wsdl
 
 
-## REST Server
+## Spark Server
 
-A timer based service is provided to retrieve data from ACME web service.
+A timer based service is provided to retrieve data from deludo web service.
 
-A Infinispan base cache is configured to store the data from ACME.
+A Infinispan base cache is configured to store the data from deludo.
 
 REST API is exposed to remote access, eg. get members, update member.
 
