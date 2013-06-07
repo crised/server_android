@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.telematic</groupId>
-	<artifactId>spark</artifactId>
+	<groupId>com.deludo</groupId>
+	<artifactId>deludo</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
 
@@ -21,8 +21,6 @@
 		<version.war.plugin>2.1.1</version.war.plugin>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<maven.compiler.source>1.6</maven.compiler.source>
-		<infinispan.version>5.1.1.FINAL</infinispan.version>
-		<version.solder>3.1.1.Final</version.solder>
 	</properties>
 
 
@@ -124,59 +122,6 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>com.sun.xml.ws</groupId>
-			<artifactId>jaxws-rt</artifactId>
-			<version>2.2.7</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- Infinispan dependency -->
-		<dependency>
-			<groupId>org.infinispan</groupId>
-			<artifactId>infinispan-core</artifactId>
-			<version>${infinispan.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jboss-transaction-api</artifactId>
-					<groupId>org.jboss.javaee</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jboss-logging</artifactId>
-					<groupId>org.jboss.logging</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
-			<groupId>org.infinispan</groupId>
-			<artifactId>infinispan-cdi</artifactId>
-			<version>${infinispan.version}</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>jboss-logging</artifactId>
-					<groupId>org.jboss.logging</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<!-- <dependency> <artifactId>jboss-logging</artifactId> <groupId>org.jboss.logging</groupId> 
-			<version>3.1.2.GA</version> <scope>provided</scope> </dependency> -->
-
-		<dependency>
-			<groupId>org.jboss.solder</groupId>
-			<artifactId>solder-impl</artifactId>
-			<version>${version.solder}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.solder</groupId>
-			<artifactId>solder-logging</artifactId>
-			<version>${version.solder}</version>
-			<scope>runtime</scope>
-		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -192,6 +137,8 @@
 				<configuration>
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>
+					<compilerArgument>-proc:none</compilerArgument>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -213,41 +160,38 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>2.0.5</version>
+				<executions>
+					<execution>
+						<id>process</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<processors>
+								<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+							</processors>
+							<outputDirectory>${project.build.directory}/generated-sources/java/</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-jpamodelgen</artifactId>
+						<version>1.2.0.Final</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>${version.war.plugin}</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jaxws-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>wsimport</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<wsdlUrls>
-						<wsdlUrl>http://localhost:8080/deludo/MemberWSService?wsdl</wsdlUrl>
-					</wsdlUrls>
-					<bindingFiles>
-						<bindingFile>${basedir}/src/main/resources/jaxws/jaxb-bindings.xml</bindingFile>
-					</bindingFiles>
-					<packageName>com.deludo.ws.client</packageName>
-					<sourceDestDir>${project.build.directory}/generated-sources/java/</sourceDestDir>
-				</configuration>
-				<!-- if you want to use a specific version of JAX-WS, you can do so like 
-					this -->
-				<dependencies>
-					<dependency>
-						<groupId>com.sun.xml.ws</groupId>
-						<artifactId>jaxws-tools</artifactId>
-						<version>2.2.5</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>

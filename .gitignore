@@ -1,11 +1,23 @@
 *.class
+*.swp
+target
 
 # Package Files #
 *.jar
 *.war
 *.ear
+
+# Eclipse files # 
 .classpath
 .project
+
+# MacOS files #
 .DS_Store
+
+# Android files #
 bin/
 gen/
+
+# IntelliJ IDEA files #
+*.iml
+.idea

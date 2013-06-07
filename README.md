@@ -1,31 +1,38 @@
 server-android
 ==============
+Name changed!
+==============
+* deludo(WS) ex acme
+* spark(WS+RS) ex telematic
+* heron(android)
+
 
 This project is about a Server Application plus a Android application.
 
-For practical purposes the client company will be named ACME. ACME is not an IT company so their servers are closed to us for now. 
-
-Our company is Telematic, so our packages could be named
-com.telematic.
+For practical purposes the client company will be named Deludo. Deludo is not an IT company so their servers are closed to us for now. 
 
 Our unit of work will be a job assignment. Which consist of a back office agent creating an *assignment* for a specific **field agent**.
 
 Important Relationships:
 
-* 3 ACME existing applications.
-* 1 Telematic Server Application.
+* 3 Deludo existing applications (we're not allowed to modify this)
+* 1 Spark Server Application.
 * Any number of clients connected to Admin Client.
 * 12 android tablets for field agents.
 * Each created Job must be assigned to one specific agent.
 
 
-Telematic Server Application
+
+Spark Server Application
 -----------------
+
+Server Address: (Right now using AngularJS quickstart)
+ http://23.21.60.18:8080/jboss-as-kitchensink-angularjs/rest/members/
 
 The server will be based on JBoss AS 7.1.1 (built JBoss 7.1.3 from suorce, what is roughly equivalente).  This server will be behind Apache
 httpd server, in order to manage SSL encryption.
 
-The server app will communicate to existing ACME company services with SOAP web services on the back end, on the front end side: with RESTful to Admin and Android client applications.
+The server app will communicate to existing Deludo company services with SOAP web services on the back end, on the front end side: with RESTful to Admin and Android client applications.
 
 JAX-WS services will fetch XML data from two different Web Services. The idea is to have one POJO (@Entity), named e.g. *JobTask*, that packs all the information needed for the field agent to perform his job. (Customer#Id, Address, GPS Position, Payment Status, field agent?, etc).  
 
@@ -33,11 +40,15 @@ One idea can be to extend both classes that consume the 2 web services, (assumin
 
 Keep in mind that Siebel Task can be CREATE/UPDATE/DELETE , so each notice should be send  to the device. We would have to think of some locking mechanism when a specific job task is being changed by Siebel, at the same time android app is uploading finished information.
 
+We should use Jackson instead of Jettison for generating JSON object.
 
 Admin Browser Client Application
 ----------------
 
-Local ACME intranet website, embedded in Telematic Server application, which communicates with the same RESTful API interface that android devices communicate. 
+Server Address: http://107.21.233.48:8080/
+
+
+Local Deludo intranet website, embedded in Spark Server application, which communicates with the same RESTful API interface that android devices communicate. 
 
 Purpose is to show markers in the map about the current jobs to do, showing an overlay of job details. 
 
@@ -48,7 +59,7 @@ Features:
 
 * AngularJS on front end. 
 
-Android Application
+Heron - Android Application
 -----------------
 
 Then Android application is aimed for a single device, Samsung Galaxy 2 10" (P5100). 
@@ -69,7 +80,7 @@ Design guidelines:
 
 * Dagger DI.
 * AndroidBootstrap (SafeAsyncTask seems a good class to use for threading help).
-* Loaders and Listviews.
+* Loaders and Listviews and Adapters.
 * SQLite Content provider.
 * GSON (Converts JSON message to POJO)
 * ButterKnife to Inject Views.
@@ -78,10 +89,10 @@ Design guidelines:
 
 
 
-Existing ACME Applications
+Existing Deludo Applications
 ----------------
 
-ACME haves 3 main application that we concern:
+Deludo haves 3 main application that we concern:
 
 * Oracle Siebel - CRM 
 * Commercial System
@@ -90,5 +101,3 @@ ACME haves 3 main application that we concern:
 Other Considerations
 ----------------
 Sonar is considered for application analysis, both on server code and android code.
-
-2 micro instances with fixed ip will be setted in order to have 2 working servers (ACME & Telematic).
