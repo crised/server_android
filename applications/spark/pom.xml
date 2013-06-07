@@ -231,8 +231,11 @@
 				</executions>
 				<configuration>
 					<wsdlUrls>
-						<wsdlUrl>http://107.21.233.48:8080/acme/MemberWSService?wsdl</wsdlUrl>
+						<wsdlUrl>http://localhost:8080/deludo/MemberWSService?wsdl</wsdlUrl>
 					</wsdlUrls>
+					<bindingFiles>
+						<bindingFile>${basedir}/src/main/resources/jaxws/jaxb-bindings.xml</bindingFile>
+					</bindingFiles>
 					<packageName>com.deludo.ws.client</packageName>
 					<sourceDestDir>${project.build.directory}/generated-sources/java/</sourceDestDir>
 				</configuration>

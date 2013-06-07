@@ -14,7 +14,7 @@ import org.infinispan.eviction.EvictionStrategy;
  *
  */
 public class CacheConfigurationProducer {
-	private static final String CACHE_LOC="memeber-cache";
+	private static final String CACHE_LOC="member-cache";
 
     @ConfigureCache("pending-cache")
     @PendingCache

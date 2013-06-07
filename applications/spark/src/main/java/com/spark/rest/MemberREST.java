@@ -24,8 +24,8 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.deludo.ws.client.Member;
 import com.spark.service.MemberService;
-import com.spark.model.Member;
 
 
 /**
