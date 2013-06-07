@@ -1,4 +1,4 @@
-package cl.telematic.heron.provider;
+package com.heron.provider;
 
 import java.io.IOException;
 
@@ -7,11 +7,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.heron.Heron;
+
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
-import cl.telematic.heron.Heron;
 
 public class UriRequestTask implements Runnable {
     private HttpUriRequest mRequest;

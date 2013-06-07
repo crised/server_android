@@ -1,4 +1,4 @@
-package cl.telematic.heron.provider;
+package com.heron.provider;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,10 +15,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
-import cl.telematic.heron.Heron;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.heron.Heron;
 
 public class TelematicHandler implements ResponseHandler {
     private static final String FLUSH_TIME = "5 minutes";

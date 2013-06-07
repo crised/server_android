@@ -1,4 +1,4 @@
-package cl.telematic.heron.provider;
+package com.heron.provider;
 
 import java.io.IOException;
 

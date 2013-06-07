@@ -1,4 +1,4 @@
-package cl.telematic.heron.provider;
+package com.heron.provider;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -7,13 +7,14 @@ import java.util.Map;
 
 import org.apache.http.client.methods.HttpGet;
 
+import com.heron.Heron;
+
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
 
-import cl.telematic.heron.Heron;
 
 public abstract class RESTfulContentProvider extends ContentProvider {
     private Map<String, UriRequestTask> mRequestsInProgress =

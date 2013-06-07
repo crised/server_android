@@ -1,4 +1,4 @@
-package cl.telematic.heron.provider;
+package com.heron.provider;
 
 import android.net.Uri;
 import android.provider.BaseColumns;

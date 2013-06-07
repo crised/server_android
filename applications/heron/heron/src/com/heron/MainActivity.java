@@ -1,6 +1,6 @@
-package cl.telematic.heron;
+package com.heron;
 
-import cl.telematic.heron.provider.TelematicMember;
+import com.heron.provider.TelematicMember;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.ListActivity;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cl.telematic.heron"
+    package="com.heron"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="cl.telematic.heron.MainActivity"
+            android:name="com.heron.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <provider android:name="cl.telematic.heron.provider.TelematicContentProvider" android:authorities="cl.telematic.heron.provider.telematic"></provider>
+        <provider android:name="com.heron.provider.TelematicContentProvider" android:authorities="com.heron.provider.telematic"></provider>
     </application>
 
 </manifest>

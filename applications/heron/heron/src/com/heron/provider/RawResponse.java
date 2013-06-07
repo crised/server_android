@@ -1,4 +1,4 @@
-package cl.telematic.heron.provider;
+package com.heron.provider;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,10 +13,11 @@ import org.apache.http.StatusLine;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.params.HttpParams;
 
+import com.heron.Heron;
+
 import android.content.Context;
 import android.util.Log;
 
-import cl.telematic.heron.Heron;
 
 public class RawResponse implements HttpResponse {
     private HttpEntity mDebugEntity;
