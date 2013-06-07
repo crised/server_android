@@ -4,8 +4,8 @@
 
 Currently two projects are ready for remote access service via REST API.
 
-* **deludo** - deludo JAXWS SOAP based service emulator.
-* **rest-server** - retrieve the data from deludo, provides REST APIs for remote application.
+* **deludo** - deludo JAXWS SOAP based service emulator. http://107.21.233.48:8080/acme/MemberWSService?wsdl
+* **spark** - retrieve the data from deludo, provides REST APIs for remote application.
 
 *The workflow* works now.
 
@@ -29,7 +29,7 @@ to deploy the application to running Jboss 7 server.
 SOAP based service url, http://107.21.233.48:8080/acme/MemberWSService?wsdl
 
 
-## REST Server
+## Spark Server
 
 A timer based service is provided to retrieve data from deludo web service.
 
