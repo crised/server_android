@@ -1,19 +1,18 @@
 package com.heron.provider;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.http.client.methods.HttpGet;
-
-import com.heron.Heron;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
+
+import com.heron.Heron;
 
 
 public abstract class RESTfulContentProvider extends ContentProvider {
@@ -43,13 +42,10 @@ public abstract class RESTfulContentProvider extends ContentProvider {
     protected abstract ResponseHandler newResponseHandler(String requestTag);
     public abstract SQLiteDatabase getDatabase();
     
-    UriRequestTask newQueryTask(String requestTag, String url) {
+    UriRequestTask newQueryTask(String requestTag, URL url) {
         UriRequestTask requestTask;
-
-        final HttpGet get = new HttpGet(url);
         ResponseHandler handler = newResponseHandler(requestTag);
-        requestTask = new UriRequestTask(requestTag, this, get, handler, getContext());
-
+        requestTask = new UriRequestTask(requestTag, this, url, handler, getContext());
         mRequestsInProgress.put(requestTag, requestTask);
         return requestTask;
     }
@@ -61,7 +57,7 @@ public abstract class RESTfulContentProvider extends ContentProvider {
      *
      * @param queryUri the complete URI that should be access by this request.
      */
-    public void asyncQueryRequest(String queryTag, String queryUri) {
+    public void asyncQueryRequest(String queryTag, URL queryUri) {
         synchronized (mRequestsInProgress) {
             UriRequestTask requestTask = getRequestTask(queryTag);
             if (requestTask == null) {

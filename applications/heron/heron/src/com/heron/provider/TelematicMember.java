@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 public class TelematicMember {
-    public static final String AUTHORITY = "cl.telematic.heron.provider.telematic";
+    public static final String AUTHORITY = "com.heron.provider.telematic";
     public static final int ID_COLUMN = 0;
     
     public static final class Members implements BaseColumns {

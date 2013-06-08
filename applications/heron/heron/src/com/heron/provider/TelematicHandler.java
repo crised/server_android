@@ -7,13 +7,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Collection;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -30,9 +26,9 @@ public class TelematicHandler implements ResponseHandler {
     }
 
     @Override
-    public void handleResponse(HttpResponse response, Uri uri) throws IOException {
+    public void handleResponse(InputStream is) throws IOException {
         try {
-           int newCount = parseTelematicEntity(response.getEntity());
+           int newCount = parseTelematicEntity(is);
            if(newCount > 0) {
                deleteOld();
            }
@@ -74,9 +70,8 @@ public class TelematicHandler implements ResponseHandler {
         }
     }
     
-    private int parseTelematicEntity(HttpEntity entity) throws IOException {
-        InputStream telematicContent = entity.getContent();
-        BufferedReader r = new BufferedReader(new InputStreamReader(telematicContent));
+    private int parseTelematicEntity(InputStream is) throws IOException {
+        BufferedReader r = new BufferedReader(new InputStreamReader(is));
         StringBuilder total = new StringBuilder();
         String line;
         while ((line = r.readLine()) != null) {

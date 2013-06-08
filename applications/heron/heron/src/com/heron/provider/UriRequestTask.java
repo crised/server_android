@@ -1,83 +1,57 @@
 package com.heron.provider;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.DefaultHttpClient;
+import android.content.Context;
+import android.util.Log;
 
 import com.heron.Heron;
 
-import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
-
-
 public class UriRequestTask implements Runnable {
-    private HttpUriRequest mRequest;
     private ResponseHandler mHandler;
+    private URL url;
 
     protected Context mAppContext;
 
     private RESTfulContentProvider mSiteProvider;
     private String mRequestTag;
-    
-    private int mRawResponse = -1;
-//    private int mRawResponse = R.raw.map_src;
 
-    public UriRequestTask(HttpUriRequest request,
-                          ResponseHandler handler, Context appContext)
-    {
-        this(null, null, request, handler, appContext);
+    public UriRequestTask(URL url, ResponseHandler handler, Context appContext) {
+        this(null, null, url, handler, appContext);
     }
-                                          
-    public UriRequestTask(String requestTag,
-                          RESTfulContentProvider siteProvider,
-                          HttpUriRequest request,
-                          ResponseHandler handler, Context appContext)
-    {
+
+    public UriRequestTask(String requestTag, RESTfulContentProvider siteProvider, URL url, ResponseHandler handler,
+            Context appContext) {
         mRequestTag = requestTag;
         mSiteProvider = siteProvider;
-        mRequest = request;
+        this.url = url;
         mHandler = handler;
         mAppContext = appContext;
     }
 
-    public void setRawResponse(int rawResponse) {
-        mRawResponse = rawResponse;
-    }
-
     /**
-     * Carries out the request on the complete URI as indicated by the protocol,
-     * host, and port contained in the configuration, and the URI supplied to
-     * the constructor.
+     * Carries out the request on the complete URI as indicated by the protocol, host, and port contained in the
+     * configuration, and the URI supplied to the constructor.
      */
     public void run() {
-        HttpResponse response;
-
+        HttpURLConnection urlConnection = null;
         try {
-            response = execute(mRequest);
-            mHandler.handleResponse(response, getUri());
+            urlConnection = (HttpURLConnection) url.openConnection();
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            mHandler.handleResponse(in);
         } catch (IOException e) {
             Log.w(Heron.LOG_TAG, "exception processing asynch request", e);
         } finally {
+            if(urlConnection != null) {
+                urlConnection.disconnect();                
+            }
             if (mSiteProvider != null) {
                 mSiteProvider.requestComplete(mRequestTag);
             }
         }
-    }
-
-    private HttpResponse execute(HttpUriRequest mRequest) throws IOException {
-        if (mRawResponse >= 0) {
-            return new RawResponse(mAppContext, mRawResponse);
-        } else {
-            HttpClient client = new DefaultHttpClient();
-            return client.execute(mRequest);
-        }
-    }
-
-    public Uri getUri() {
-        return Uri.parse(mRequest.getURI().toString());
     }
 }

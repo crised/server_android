@@ -1,5 +1,8 @@
 package com.heron.provider;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -9,6 +12,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.util.Log;
+
+import com.heron.Heron;
 
 
 public class TelematicContentProvider extends RESTfulContentProvider {
@@ -84,7 +90,11 @@ public class TelematicContentProvider extends RESTfulContentProvider {
         case MEMBERS:
             queryCursor = mDb.query(MEMBERS_TABLE_NAME, projection, where, whereArgs, null, null, sortOrder);
             queryCursor.setNotificationUri(mContentResolver, uri);
-            asyncQueryRequest("members", QUERY_URI);
+            try {
+                asyncQueryRequest("members", new URL(QUERY_URI));
+            } catch (MalformedURLException e) {
+                Log.w(Heron.LOG_TAG, "url malformed: " + QUERY_URI);
+            }
             break;
         case MEMBER_ID:
             long memberID = ContentUris.parseId(uri);

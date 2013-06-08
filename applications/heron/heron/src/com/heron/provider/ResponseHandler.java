@@ -1,12 +1,9 @@
 package com.heron.provider;
 
 import java.io.IOException;
-
-import org.apache.http.HttpResponse;
-
-import android.net.Uri;
+import java.io.InputStream;
 
 public interface ResponseHandler {
-    void handleResponse(HttpResponse response, Uri uri)
+    void handleResponse(InputStream in)
             throws IOException;
 }
