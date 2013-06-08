@@ -1,6 +1,9 @@
 package com.heron;
 
-import com.heron.provider.TelematicMember;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.ListActivity;
@@ -11,12 +14,19 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.ViewGroup;
+import android.widget.CursorAdapter;
 import android.widget.ProgressBar;
-import android.widget.SimpleCursorAdapter;
 
-public class MainActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+import com.heron.dagger.MainActivityModule;
+import com.heron.provider.TelematicMember;
 
-    SimpleCursorAdapter mAdapter;
+import dagger.ObjectGraph;
+
+public class MainActivity extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+    private ObjectGraph activityGraph;
+
+    @Inject
+    CursorAdapter mAdapter;
 
     static final String[] PROJECTION = new String[] { TelematicMember.Members._ID, TelematicMember.Members.EMAIL };
 
@@ -25,21 +35,21 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        HeronApplication application = (HeronApplication) getApplication();
+        activityGraph = application.getApplicationGraph().plus(getModules().toArray());
+        activityGraph.inject(this);
+        
         ProgressBar progressBar = new ProgressBar(this);
         progressBar.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
                 Gravity.CENTER));
         progressBar.setIndeterminate(true);
         getListView().setEmptyView(progressBar);
-        
+
         ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
         root.addView(progressBar);
-        
-        String[] fromColumns = {TelematicMember.Members.EMAIL};
-        int[] toViews = {android.R.id.text1};
-        
-        mAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, null, fromColumns, toViews, 0);
         setListAdapter(mAdapter);
-        
+
         getLoaderManager().initLoader(0, null, this);
     }
 
@@ -58,4 +68,7 @@ public class MainActivity extends ListActivity implements LoaderManager.LoaderCa
         mAdapter.swapCursor(null);
     }
 
+    protected List<Object> getModules() {
+        return Arrays.<Object> asList(new MainActivityModule(this));
+    }
 }
