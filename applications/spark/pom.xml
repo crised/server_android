@@ -2,48 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
-	<groupId>com.telematic</groupId>
 	<artifactId>spark</artifactId>
-	<version>1.0.0</version>
 	<packaging>war</packaging>
-
-	<properties>
-		<!-- Explicitly declaring the source encoding eliminates the following 
-			message: -->
-		<!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered 
-			resources, i.e. build is platform dependent! -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.org.jboss.as.plugins.maven.plugin>7.3.Final</version.org.jboss.as.plugins.maven.plugin>
-		<version.org.jboss.bom>1.0.4.Final</version.org.jboss.bom>
-		<version.compiler.plugin>2.3.1</version.compiler.plugin>
-		<version.surefire.plugin>2.4.3</version.surefire.plugin>
-		<version.war.plugin>2.1.1</version.war.plugin>
-		<maven.compiler.target>1.6</maven.compiler.target>
-		<maven.compiler.source>1.6</maven.compiler.source>
-		<infinispan.version>5.1.1.FINAL</infinispan.version>
-		<version.solder>3.1.1.Final</version.solder>
-	</properties>
-
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.jboss.bom</groupId>
-				<artifactId>jboss-javaee-6.0-with-tools</artifactId>
-				<version>${version.org.jboss.bom}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.bom</groupId>
-				<artifactId>jboss-javaee-6.0-with-hibernate</artifactId>
-				<version>${version.org.jboss.bom}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+	<parent>
+		<groupId>com.telematic</groupId>
+		<artifactId>spark-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
 
 	<dependencies>
 
@@ -177,6 +142,48 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>${version.resteasy}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>${version.resteasy}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-jaxrs</artifactId>
+			<version>${version.jackson}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${version.jackson}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${version.jackson}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-xc</artifactId>
+			<version>${version.jackson}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.telematic</groupId>
+			<artifactId>spark-util</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -188,87 +195,18 @@
 				processors -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${version.compiler.plugin}</version>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>${project.build.directory}/generated-sources/java/</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
-				<version>${version.war.plugin}</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxws-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>wsimport</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<wsdlUrls>
-						<wsdlUrl>http://localhost:8080/deludo/MemberWSService?wsdl</wsdlUrl>
-					</wsdlUrls>
-					<bindingFiles>
-						<bindingFile>${basedir}/src/main/resources/jaxws/jaxb-bindings.xml</bindingFile>
-					</bindingFiles>
-					<packageName>com.deludo.ws.client</packageName>
-					<sourceDestDir>${project.build.directory}/generated-sources/java/</sourceDestDir>
-				</configuration>
-				<!-- if you want to use a specific version of JAX-WS, you can do so like 
-					this -->
-				<dependencies>
-					<dependency>
-						<groupId>com.sun.xml.ws</groupId>
-						<artifactId>jaxws-tools</artifactId>
-						<version>2.2.5</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>${version.surefire.plugin}</version>
-						<configuration>
-							<skip>true</skip>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
