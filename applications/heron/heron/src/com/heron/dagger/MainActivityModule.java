@@ -6,7 +6,7 @@ import android.content.Context;
 import android.widget.CursorAdapter;
 import android.widget.SimpleCursorAdapter;
 
-import com.heron.MainActivity;
+import com.heron.activity.MainActivity;
 import com.heron.provider.TelematicMember;
 
 import dagger.Module;

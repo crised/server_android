@@ -4,17 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.util.Collection;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.heron.Heron;
+import com.heron.model.Member;
 
 public class TelematicHandler implements ResponseHandler {
     private static final String FLUSH_TIME = "5 minutes";
@@ -78,26 +75,11 @@ public class TelematicHandler implements ResponseHandler {
             total.append(line);
         }
         String membersS = total.toString();
-        Gson gson = new Gson();
-        Type collectionType = new TypeToken<Collection<Member>>(){}.getType();
-        Collection<Member> members = gson.fromJson(membersS, collectionType);
-        ContentValues memberEntry;
+        Collection<Member> members = Member.membersFromJson(membersS);
         for(Member member: members) {
-            memberEntry = new ContentValues();
-            memberEntry.put(TelematicMember.Members.MEMBER_ID, member.id);
-            memberEntry.put(TelematicMember.Members.MEMBER_NAME, member.name);
-            memberEntry.put(TelematicMember.Members.EMAIL, member.email);
-            memberEntry.put(TelematicMember.Members.PHONE_NUMBER, member.phoneNumber);
             SQLiteDatabase db = telematicContentProvider.getDatabase();
-            telematicContentProvider.insert(TelematicMember.Members.MEMBERS_URI, memberEntry, db);
+            telematicContentProvider.insert(TelematicMember.Members.MEMBERS_URI, member.asContentValues(), db);
         }
         return members.size();
-    }
-    
-    private static class Member {
-        private int id;
-        private String name;
-        private String email;
-        private String phoneNumber;
     }
 }

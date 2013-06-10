@@ -4,5 +4,9 @@
     <string name="app_name">Heron</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="add_new_item">Add New Item</string>
+    <string name="name_label">Name</string>
+    <string name="email_label">Email</string>
+    <string name="phoneNumber_label">Phone Number</string>
+    <string name="save_member_label">Save</string>
 </resources>

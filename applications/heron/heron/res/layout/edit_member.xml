@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/video_layout"
+        android:orientation="vertical"
+        >
+
+    <TextView
+            android:id="@+id/name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_label"
+            />
+    <EditText
+            android:id="@+id/name_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="textPersonName"
+            />
+
+    <TextView
+            android:id="@+id/email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email_label"
+            />
+    <EditText
+            android:id="@+id/email_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"
+            />
+
+    <TextView
+            android:id="@+id/phoneNumber_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/phoneNumber_label"
+            />
+    <EditText
+            android:id="@+id/phoneNumber_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:inputType="text|phone"
+            />
+    <Button
+            android:id="@+id/save_member_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_member_label"
+            />
+</LinearLayout>

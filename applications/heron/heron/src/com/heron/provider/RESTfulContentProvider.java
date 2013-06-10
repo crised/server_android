@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.heron.Heron;
+import com.heron.provider.UriRequestTask.Method;
 
 
 public abstract class RESTfulContentProvider extends ContentProvider {
@@ -42,10 +43,10 @@ public abstract class RESTfulContentProvider extends ContentProvider {
     protected abstract ResponseHandler newResponseHandler(String requestTag);
     public abstract SQLiteDatabase getDatabase();
     
-    UriRequestTask newQueryTask(String requestTag, URL url) {
+    UriRequestTask newQueryTask(String requestTag, URL url, Method method, String data) {
         UriRequestTask requestTask;
         ResponseHandler handler = newResponseHandler(requestTag);
-        requestTask = new UriRequestTask(requestTag, this, url, handler, getContext());
+        requestTask = new UriRequestTask(requestTag, this, url, handler, getContext(), method, data);
         mRequestsInProgress.put(requestTag, requestTask);
         return requestTask;
     }
@@ -57,11 +58,11 @@ public abstract class RESTfulContentProvider extends ContentProvider {
      *
      * @param queryUri the complete URI that should be access by this request.
      */
-    public void asyncQueryRequest(String queryTag, URL queryUri) {
+    public void asyncQueryRequest(String queryTag, URL queryUri, Method method, String data) {
         synchronized (mRequestsInProgress) {
             UriRequestTask requestTask = getRequestTask(queryTag);
             if (requestTask == null) {
-                requestTask = newQueryTask(queryTag, queryUri);
+                requestTask = newQueryTask(queryTag, queryUri, method, data);
                 Thread t = new Thread(requestTask);
                 // allows other requests to run in parallel.
                 t.start();

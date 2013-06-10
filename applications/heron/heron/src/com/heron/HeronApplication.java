@@ -21,7 +21,7 @@ public class HeronApplication extends Application {
         return Arrays.<Object>asList(new AndroidModule(this));
     }
     
-    ObjectGraph getApplicationGraph() {
+    public ObjectGraph getApplicationGraph() {
         return applicationGraph;
     }
 }
