@@ -3,9 +3,10 @@ package com.heron;
 import java.util.Arrays;
 import java.util.List;
 
+import android.app.Application;
+
 import com.heron.dagger.AndroidModule;
 
-import android.app.Application;
 import dagger.ObjectGraph;
 
 public class HeronApplication extends Application {

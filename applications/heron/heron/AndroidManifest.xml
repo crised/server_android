@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.heron"
+<manifest package="com.heron"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -24,6 +23,7 @@
             </intent-filter>
         </activity>
         <provider android:name="com.heron.provider.TelematicContentProvider" android:authorities="com.heron.provider.telematic"></provider>
+        <service android:name=".service.TelematicService"></service>
     </application>
 
 </manifest>

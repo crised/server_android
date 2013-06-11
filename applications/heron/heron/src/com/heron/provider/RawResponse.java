@@ -13,10 +13,10 @@ import org.apache.http.StatusLine;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.params.HttpParams;
 
-import com.heron.Heron;
-
 import android.content.Context;
 import android.util.Log;
+
+import com.heron.Heron;
 
 
 public class RawResponse implements HttpResponse {

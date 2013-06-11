@@ -4,33 +4,29 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.util.Log;
 
 import com.heron.Heron;
 
 public class UriRequestTask implements Runnable {
-    private ResponseHandler mHandler;
-    private URL url;
-
-    protected Context mAppContext;
-
-    private RESTfulContentProvider mSiteProvider;
+    
     private String mRequestTag;
+    private String urlS;
+    private Map<String, UriRequestTask> mRequestsInProgress;
+    private ContentResolver cr;
 
-    public UriRequestTask(URL url, ResponseHandler handler, Context appContext) {
-        this(null, null, url, handler, appContext);
-    }
-
-    public UriRequestTask(String requestTag, RESTfulContentProvider siteProvider, URL url, ResponseHandler handler,
-            Context appContext) {
+    public UriRequestTask(String requestTag, String url, Context context,Map<String, UriRequestTask> mRequestsInProgress,
+            ContentResolver cr) {
         mRequestTag = requestTag;
-        mSiteProvider = siteProvider;
-        this.url = url;
-        mHandler = handler;
-        mAppContext = appContext;
+        this.urlS = url;
+        this.mRequestsInProgress = mRequestsInProgress;
+        this.cr = cr;
     }
 
     /**
@@ -40,17 +36,21 @@ public class UriRequestTask implements Runnable {
     public void run() {
         HttpURLConnection urlConnection = null;
         try {
+            URL url = new URL(urlS);
+            ResponseHandler mHandler = new TelematicHandler(cr);
             urlConnection = (HttpURLConnection) url.openConnection();
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             mHandler.handleResponse(in);
+        } catch (MalformedURLException e) {
+            Log.e(Heron.LOG_TAG, "Malformed url: " + urlS, e);
         } catch (IOException e) {
             Log.w(Heron.LOG_TAG, "exception processing asynch request", e);
         } finally {
-            if(urlConnection != null) {
-                urlConnection.disconnect();                
+            if (urlConnection != null) {
+                urlConnection.disconnect();
             }
-            if (mSiteProvider != null) {
-                mSiteProvider.requestComplete(mRequestTag);
+            synchronized (mRequestsInProgress) {
+                mRequestsInProgress.remove(mRequestTag);
             }
         }
     }
