@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import android.app.ListFragment;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -27,6 +28,9 @@ public class MembersListFragment extends ListFragment implements LoaderManager.L
     @Inject
     CursorAdapter mAdapter;
 
+    @Inject
+    Context app;
+
     static final String[] PROJECTION = new String[] { TelematicMember.Members._ID, TelematicMember.Members.EMAIL };
 
     static final String SELECTION = null;
@@ -34,7 +38,7 @@ public class MembersListFragment extends ListFragment implements LoaderManager.L
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        HeronApplication application = (HeronApplication) getActivity().getApplication();
+        HeronApplication application = (HeronApplication) app;
         activityGraph = application.getApplicationGraph().plus(getModules().toArray());
         activityGraph.inject(this);
         getLoaderManager().initLoader(0, null, this);
